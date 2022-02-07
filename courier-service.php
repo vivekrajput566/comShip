@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -107,6 +108,7 @@
         pickupFormData.append("pickup-pincode",pickupPincode);
         pickupFormData.append("pickup-mobileno",pickupMobileNo);
         pickupFormData.append("product-weight",productWeight);
+        pickupFormData.append("pickup-data","pickup-data");
         $("#pickup-loading").show();
         $("#pickup-continue").hide();
         $.ajax({
@@ -160,10 +162,10 @@
 
         let destinationFormData= new FormData();
         destinationFormData.append("destination-username",destinationUsername);
-        destinationFormData.append("pickup-address",destinationAddress);
-        destinationFormData.append("pickup-pincode",destinationPincode);
-        destinationFormData.append("pickup-mobileno",destinationMobileNo);
-        destinationFormData.append("product-weight",productWeight);
+        destinationFormData.append("destination-address",destinationAddress);
+        destinationFormData.append("destination-pincode",destinationPincode);
+        destinationFormData.append("destination-mobileno",destinationMobileNo);
+        destinationFormData.append("destination-data","destination-data");
         $("#destination-loading").show();
         $("#destination-continue").hide();
         $.ajax({
@@ -173,6 +175,7 @@
           processData:false,
           contentType:false,
           success:function(data){
+            console.log(data)
             if(data==1){
               $("#destination-details-error").text("Server error");
               window.location="delivery-charges.php";
@@ -198,20 +201,32 @@
   <span class="text-primary" style="font-size:20px;font-weight:bold;">  Pickup Details </span><br>
   <span class="text-danger pickup-details-error" style="font-size:15px;font-weight:bold;"> </span>
   </center>
+  <?php
 
+    $pickupUsername="";
+    $pickupAddress="";
+    $pickupPincode="";
+    $pickupMobileNo="";
+    if(isset($_SESSION["pickup-details"])){
+      $pickupUsername=$_SESSION["pickup-username"];
+      $pickupAddress=$_SESSION["pickup-address"];
+      $pickupPincode=$_SESSION["pickup-pincode"];
+      $pickupMobileNo=$_SESSION["pickup-mobileno"];
+    }
+  ?>
 
       <label for="pickup-username">Your name</label>
-      <input type="text" id="pickup-username" name="pickup-username" required placeholder="Enter Your name">
+      <input type="text" id="pickup-username" name="pickup-username" value="<?php echo $pickupUsername;  ?>" required placeholder="Enter Your name">
 
       <label for="pickup-user-address">Your Pickup Address</label>
-      <input type="text" id="pickup-user-address" name="pickup-user-address" required placeholder="Enter Complete Pickup Address">
+      <input type="text" id="pickup-user-address" name="pickup-user-address" value="<?php echo $pickupAddress;  ?>" required placeholder="Enter Complete Pickup Address">
 
       <label for="pickup-user-pincode">Your Pickup Pincode</label>
-      <input type="number" id="pickup-user-pincode" name="pickup-user-pincode" required placeholder="Enter Your Area PINCODE">
+      <input type="number" id="pickup-user-pincode" name="pickup-user-pincode" value="<?php echo $pickupPincode;  ?>" required placeholder="Enter Your Area PINCODE">
 
 
       <label for="pickup-mobile-no">Your Mobile Number</label>
-      <input type="number" id="pickup-mobile-no" name="pickup-user-mobile-no" required placeholder="Enter Your Mobile Number">
+      <input type="number" id="pickup-mobile-no" name="pickup-user-mobile-no" value="<?php echo $pickupMobileNo;  ?>" required placeholder="Enter Your Mobile Number">
 
       <label for="product-weight">Product Weight (kg)</label>
       <input type="text" id="product-weight" name="product-weight" required placeholder="Enter your product weight">
@@ -224,8 +239,11 @@
   </div>
   </div>
 
+
+
+
   <!--- destination <details -->
-  <div class="row" id="destination-details" style="display: none;position:relative;width:auto;height:524px;">
+  <div class="row" id="destination-details" style="display:none;position:relative;width:auto;height:524px;">
   <div class="row" style="background-color:#f2f2f2;height:auto;width:90%;position:absolute;margin:auto;top:0;right:0;left:0;bottom:0;">
     <center>
   <span class="text-primary" style="font-size:20px;font-weight:bold;">  Destination Details </span><br>

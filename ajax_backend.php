@@ -625,7 +625,7 @@ if(isset($_POST['fetchsearchresult'])){
 
 }
 
-if(isset($_POST['pickup_data'])){
+if(isset($_POST['pickup-data'])){
   $username=$_POST['pickup-username'];
   $useraddress=$_POST['pickup-address'];
   $userpincode=$_POST['pickup-pincode'];
@@ -639,6 +639,26 @@ if(isset($_POST['pickup_data'])){
   $_SESSION['pickup-mobileno']=$usermobileno;
   $_SESSION['product-weight']=$productweight;
   $_SESSION['pickup-details']=$pickup_status;
+
+  
+  echo 1;
+  exit();
+
+}
+
+if(isset($_POST['destination-data'])){
+  $username=$_POST['destination-username'];
+  $useraddress=$_POST['destination-address'];
+  $userpincode=$_POST['destination-pincode'];
+  $usermobileno=$_POST['destination-mobileno'];
+
+  $destination_status="ok";
+
+  $_SESSION['destination-username']=$username;
+  $_SESSION['destination-address']=$useraddress;
+  $_SESSION['destination-pincode']=$userpincode;
+  $_SESSION['destination-mobileno']=$usermobileno;
+  $_SESSION['destination-details']=$destination_status;
   echo 1;
   exit();
 

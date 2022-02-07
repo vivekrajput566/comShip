@@ -1,10 +1,12 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>comShip</title>
     <style>
     input[type=submit] {
@@ -20,10 +22,26 @@
     }
 
   </style>
+
+  <script>
+  $(document).ready(function(){
+
+    $("#cash-on-delivery").click(function(){
+      $("#pay-now").prop("checked",false);
+
+    })
+    $("#pay-now").click(function(){
+
+      $("#cash-on-delivery").prop("checked",false);
+
+    })
+
+  })
+  </script>
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-2 bg-primary text-white h5 p-2">
+        <div class="col-2 bg-primary text-white h5 p-2 material-icons" style="font-size:30px;">
           menu
         </div>
         <div class="col-10 bg-primary text-white h1 p-2 ps-5">
@@ -75,8 +93,9 @@
 
 
   <div id="select-cod" class="row" style="padding:5px;">
+
     <div class="col-1">
-      <input type="radio" checked="true" />
+      <input type="radio" id="cash-on-delivery" name="cash-on-delivery" checked="true" />
     </div>
     <div class="col-11" style="text-align:left;">
       Cash On Delivery
@@ -84,41 +103,55 @@
   </div>
   <div id="select-prepaid" class="row" style="padding:5px;">
       <div class="col-1">
-        <input type="radio" />
+        <input type="radio" id="pay-now" name="pay-now"/>
       </div>
       <div class="col-11" style="text-align:left;">
         Pay now
       </div>
   </div>
 
+  <?php
+
+
+      $pickupUsername=$_SESSION["pickup-username"];
+      $pickupAddress=$_SESSION["pickup-address"];
+    #  $pickupPincode=$_SESSION["pickup-pincode"];
+      $pickupMobileNo=$_SESSION["pickup-mobileno"];
+
+      $destinationUsername=$_SESSION["destination-username"];
+      $destinationAddress=$_SESSION["destination-address"];
+    #  $destinationPincode=$_SESSION["destination-pincode"];
+      $destinationMobileNo=$_SESSION["destination-mobileno"];
+
+  ?>
 
     <div id="pickup details" class="row" style="padding:5px;background:white;margin:0;margin-top:15px;  ">
-        <div class="row">
+        <div class="row" style="font-weight:bold;">
           Pickup details
         </div>
         <div class="row">
-          User name
+          <?php echo $pickupUsername;?>
         </div>
         <div class="row">
-          user address sdffsdfk sdjfk jskdfj sdkjf ksjdfkj sklfj klsjdfk jsdfkl jsdkj sdlkfj sdkf jsdkj
+            <?php echo $pickupAddress;?>
         </div>
         <div class="row">
-          mobile no
+          <?php echo $pickupMobileNo; ?>
         </div>
     </div>
 
     <div id="p destination details" class="row" style="padding:5px;margin:0;margin-top:15px;background:white;">
-        <div class="row">
+        <div class="row" style="font-weight:bold;">
           Destination details
         </div>
         <div class="row">
-          User name
+          <?php echo $destinationUsername;?>
         </div>
         <div class="row">
-          user address sdffsdfk sdjfk jskdfj sdkjf ksjdfkj sklfj klsjdfk jsdfkl jsdkj sdlkfj sdkf jsdkj
+            <?php echo $destinationAddress;?>
         </div>
         <div class="row">
-          mobile no
+            <?php echo $destinationMobileNo;?>
         </div>
     </div>
     <br>
