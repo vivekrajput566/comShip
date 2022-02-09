@@ -121,7 +121,7 @@ $("#menu-body").css('height',windowHeight);
         </div>
 
         <div id="company-name-body">
-            ComShip.in
+            shriecom.in
 
         </div>
 
@@ -713,7 +713,7 @@ $("#loading-image-body").show();
       <div id="loading-image-body" style="display: none;width:100%;position:absolute;left:0;right:0;bottom:0;top:0;margin:auto;height:100%;z-index:2;">
       <div id="loading-image-box"  style="position:absolute;left:0;right:0;bottom:0;top:0;margin:auto;width:82%;border-radius: 10px;height:200px;border:1px solid black;background:white;">
         <div class="spinner-border text-primary">
-           
+
         </div>
         <span style="width:100%;font-size:15px;font-family: arial;position:absolute;bottom:10px;text-align:center;">wait for a sec......<span>
       </div>

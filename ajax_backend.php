@@ -43,17 +43,17 @@ if(isset($_POST['shopregister'])){
      echo("please select valid image");
      exit();
    }
-   $email=$_SESSION['userid'];
+   $phonenumber=$_SESSION['userid'];
    $shopname=$_POST['shopname'];
    $shopownername=$_POST['shopownername'];
    $shopaddress=$_POST['shopaddress'];
-   $phonenumber=$_POST['shopphonenumber'];
+   //$phonenumber=$_POST['shopphonenumber'];
    $shopcategory=$_POST['shopcategory'];
-   $con=new mysqli("localhost","root","","greendizen");
+   $con=new mysqli("localhost","root","","shriecom");
    if($con){
 
-     $insertdata=$con->prepare("insert into shopinfo (email,shopname,shopownername,shopaddress,phonenumber,shopimg,shopcategory) values (?,?,?,?,?,?,?)");
-     $insertdata->bind_param("ssssiss",$email,$shopname,$shopownername,$shopaddress,$phonenumber,$image_name,$shopcategory);
+     $insertdata=$con->prepare("insert into shopinfo (shopname,shopownername,shopaddress,phonenumber,shopimg,shopcategory) values (?,?,?,?,?,?)");
+     $insertdata->bind_param("ssssiss",$shopname,$shopownername,$shopaddress,$phonenumber,$image_name,$shopcategory);
      $insertdata->execute();
      $insertdata->close();
      $lastid=$con->insert_id;
@@ -62,8 +62,8 @@ if(isset($_POST['shopregister'])){
      $dir=$lastid.'/index.php';
      $indexfile=fopen($dir,'w');
      fwrite($indexfile,$content);
-     $_SESSION['shopowner']=$email;
-     $_SESSION['shop-register-form']=$email;
+     $_SESSION['shopowner']=$phonenumber;
+     $_SESSION['shop-register-form']=$phonenumber;
    }
    else{
      echo"no ok";
@@ -77,8 +77,8 @@ if(isset($_POST['shopregister'])){
 
 if(isset($_POST['shop_item_submit']) && isset($_SESSION['userid'])){
   $itemlist=json_decode($_POST['itemlist']);
-  $email=$_SESSION['userid'];
-  $con=new mysqli("localhost","root","","greendizen");
+  $phonenumber=$_SESSION['userid'];
+  $con=new mysqli("localhost","root","","shriecom");
 
 
   foreach ($itemlist as $itemdata ){
@@ -86,8 +86,8 @@ if(isset($_POST['shop_item_submit']) && isset($_SESSION['userid'])){
     $itemprice=$itemdata[1];
     $selectdata=mysqli_query($con,"select itemname,itemdescription,itemimg from itemselect where id=$itemid");
     $fetcheddata=mysqli_fetch_array($selectdata);
-    $email=$_SESSION['userid'];
-    $selectuser=mysqli_query($con,"select id from shopinfo where email='$email'");
+    $phonenumber=$_SESSION['userid'];
+    $selectuser=mysqli_query($con,"select id from shopinfo where phonenumber=$phonenumber");
     $fetchshopinfo=mysqli_fetch_array($selectuser);
     $shopid=$fetchshopinfo['id'];
     $itemname=$fetcheddata['itemname'];
@@ -107,8 +107,8 @@ if(isset($_POST['shop_item_submit']) && isset($_SESSION['userid'])){
     $amazonprice=0;
     $flipkartprice=0;
     $otherwebsiteprice=0;
-    $insertdata=$con->prepare("insert into shopitem (email,shopid,itemname,itemdescription,itemcode,potstatus,amazonprice,flipkartprice,otherwebsiteprice,itemprice,itemimg,itemurl,uniqueid,status) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-    $insertdata->bind_param("sississsi",$email,$shopid,$itemname,$itemdescription,$itemcode,$potstatus,$amazonprice,$flipkartprice,$otherwebsiteprice,$itemprice,$itemimg,$item_url_link,$uniqueid,$status);
+    $insertdata=$con->prepare("insert into shopitem (shopid,itemname,itemdescription,itemcode,potstatus,amazonprice,flipkartprice,otherwebsiteprice,itemprice,itemimg,itemurl,uniqueid,status) values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    $insertdata->bind_param("ississsi",$shopid,$itemname,$itemdescription,$itemcode,$potstatus,$amazonprice,$flipkartprice,$otherwebsiteprice,$itemprice,$itemimg,$item_url_link,$uniqueid,$status);
     $insertdata->execute();
     $insertdata->close();
 
@@ -122,18 +122,18 @@ if(isset($_POST['confirm_order'])){
 
   $itemid=$_POST['itemid'];
   $itemquantity=$_POST['itemquantity'];
-  $email=$_SESSION['userid'];
-  $con=new mysqli("localhost","root","","greendizen");
+  $phonenumber=$_SESSION['userid'];
+  $con=new mysqli("localhost","root","","shriecom");
   $selectitemtable=mysqli_query($con,"select * from shopitem where uniqueid='$itemid' ");
   if(mysqli_num_rows($selectitemtable)==1){
     $RANDOM=rand(10000000000,99999999999);
     $orderid=$RANDOM;
   $fetchshopinfo=mysqli_fetch_array($selectitemtable);
   $shopid=$fetchshopinfo['shopid'];
-  $shopowneremail=$fetchshopinfo['email'];
+  $shopownerphonenumber=$fetchshopinfo['phonenumber'];
   $status=1;
-  $insertdata=$con->prepare("insert into itemorder (shopowneremail,shopid,customeremail,itemuniqueid,itemquantity,status,orderid) values (?,?,?,?,?,?,?)");
-  $insertdata->bind_param("sissiii",$shopowneremail,$shopid,$email,$itemid,$itemquantity,$status,$orderid);
+  $insertdata=$con->prepare("insert into itemorder (shopownerphonenumber,shopid,customerphonenumber,itemuniqueid,itemquantity,status,orderid) values (?,?,?,?,?,?,?)");
+  $insertdata->bind_param("sissiii",$shopownerphonenumber,$shopid,$phonenumber,$itemid,$itemquantity,$status,$orderid);
   $insertdata->execute();
   $insertdata->close();
   echo 1;
@@ -149,9 +149,9 @@ if(isset($_POST['confirm_order'])){
 if(isset($_POST['confirm_cart_order'])){
 
 
-  $email=$_SESSION['userid'];
-  $con=new mysqli("localhost","root","","greendizen");
-  $selectcarttable=mysqli_query($con,"select * from shoppingcart where email='$email' ");
+  $phonenumber=$_SESSION['userid'];
+  $con=new mysqli("localhost","root","","shriecom");
+  $selectcarttable=mysqli_query($con,"select * from shoppingcart where phonenumber=$phonenumber ");
   if(mysqli_num_rows($selectcarttable)!=0){
     $noOfItems=mysqli_num_rows($selectcarttable);
     $count=0;
@@ -165,10 +165,10 @@ if(isset($_POST['confirm_cart_order'])){
   if(mysqli_num_rows($selectitemtable)==1){
   $fetchshopinfo=mysqli_fetch_array($selectitemtable);
   $shopid=$fetchshopinfo['shopid'];
-  $shopowneremail=$fetchshopinfo['email'];
+  //$shopownerphonenumber=$fetchshopinfo['phonenumber'];
   $status=1;
-  $insertdata=$con->prepare("insert into itemorder (shopowneremail,shopid,customeremail,itemuniqueid,itemquantity,status,orderid) values (?,?,?,?,?,?,?)");
-  $insertdata->bind_param("sissiii",$shopowneremail,$shopid,$email,$itemid,$itemquantity,$status,$orderid);
+  $insertdata=$con->prepare("insert into itemorder (phonenumber,shopid,itemuniqueid,itemquantity,status,orderid) values (?,?,?,?,?,?)");
+  $insertdata->bind_param("iissiii",$phonenumber,$shopid,$itemid,$itemquantity,$status,$orderid);
   $insertdata->execute();
   $insertdata->close();
   $count=$count+1;
@@ -198,9 +198,9 @@ if(isset($_POST['confirm_cart_order'])){
 
 if(isset($_POST['accept_order'])){
   $itemid=$_POST['itemid'];
-  $email=$_SESSION['userid'];
-  $con=new mysqli("localhost","root","","greendizen");
-  $selectitemtable=mysqli_query($con,"select * from itemorder where id='$itemid' AND shopowneremail='$email' ");
+  $phonenumber=$_SESSION['userid'];
+  $con=new mysqli("localhost","root","","shriecom");
+  $selectitemtable=mysqli_query($con,"select * from itemorder where id='$itemid' ");
   if(mysqli_num_rows($selectitemtable)==1){
 
   $status=2;
@@ -220,9 +220,9 @@ if(isset($_POST['accept_order'])){
 
 if(isset($_POST['decline_order'])){
   $itemid=$_POST['itemid'];
-  $email=$_SESSION['userid'];
-  $con=new mysqli("localhost","root","","greendizen");
-  $selectitemtable=mysqli_query($con,"select * from itemorder where id='$itemid' AND shopowneremail='$email' ");
+  $phonenumber=$_SESSION['userid'];
+  $con=new mysqli("localhost","root","","shriecom");
+  $selectitemtable=mysqli_query($con,"select * from itemorder where id='$itemid'");
   if(mysqli_num_rows($selectitemtable)==1){
 
   $status=3;
@@ -246,8 +246,8 @@ if(isset($_POST['add_item_to_cart'])){
 
   $itemid=$_POST['itemid'];
   $itemquantity=$_POST['itemquantity'];
-  $email=$_SESSION['userid'];
-  $con=new mysqli("localhost","root","","greendizen");
+  $phonenumber=$_SESSION['userid'];
+  $con=new mysqli("localhost","root","","shriecom");
   $selectcarttable=mysqli_query($con,"select * from shoppingcart where uniqueid='$itemid' ");
   if(mysqli_num_rows($selectcarttable)==0){
 
@@ -255,8 +255,8 @@ if(isset($_POST['add_item_to_cart'])){
 
   $selectitemdata=mysqli_query($con,"select * from shopitem where uniqueid='$itemid' ");
   $fetchitemdata=mysqli_fetch_array($selectitemdata);
-  $insertdata=$con->prepare("insert into shoppingcart (email,uniqueid,quantity) values (?,?,?)");
-  $insertdata->bind_param("sss",$email,$itemid,$itemquantity);
+  $insertdata=$con->prepare("insert into shoppingcart (phonenumber,uniqueid,quantity) values (?,?,?)");
+  $insertdata->bind_param("iss",$phonenumber,$itemid,$itemquantity);
   $insertdata->execute();
   $insertdata->close();
   echo 1;
@@ -271,16 +271,13 @@ if(isset($_POST['update_item_to_cart'])){
 
   $itemid=$_POST['itemid'];
   $itemquantity=$_POST['itemquantity'];
-  $email=$_SESSION['userid'];
-  $con=new mysqli("localhost","root","","greendizen");
-  $selectcarttable=mysqli_query($con,"select * from shoppingcart where uniqueid='$itemid' and email='$email' ");
+  $phonenumber=$_SESSION['userid'];
+  $con=new mysqli("localhost","root","","shriecom");
+  $selectcarttable=mysqli_query($con,"select * from shoppingcart where uniqueid='$itemid' and phonenumber=$phonenumber ");
   if(mysqli_num_rows($selectcarttable)==1){
 
-
-
-
-  $updatedata=$con->prepare("update shoppingcart set quantity=? where uniqueid=? and email=?");
-  $updatedata->bind_param("sss",$itemquantity,$itemid,$email);
+  $updatedata=$con->prepare("update shoppingcart set quantity=? where uniqueid=? and phonenumber=?");
+  $updatedata->bind_param("sss",$itemquantity,$itemid,$phonenumber);
   $updatedata->execute();
   $updatedata->close();
   echo 1;
@@ -300,7 +297,7 @@ if(isset($_POST['quantity_change'])){
   $itemquantity=$_POST['quantity'];
   $itemuniqueid=$_POST['uniqueid'];
   //echo $itemquantity." ".$itemuniqueid;
-  $con=new mysqli("localhost","root","","greendizen");
+  $con=new mysqli("localhost","root","","shriecom");
   $selectcarttable=mysqli_query($con,"update shoppingcart set quantity=$itemquantity where uniqueid='$itemuniqueid'");
   //echo 1;
 
@@ -310,7 +307,7 @@ if(isset($_POST['removeitem'])){
 
   $itemuniqueid=$_POST['uniqueid'];
   //echo $itemquantity." ".$itemuniqueid;
-  $con=new mysqli("localhost","root","","greendizen");
+  $con=new mysqli("localhost","root","","shriecom");
   $selectcarttable=mysqli_query($con,"delete from shoppingcart where uniqueid='$itemuniqueid'");
   //echo 1;
 
@@ -322,7 +319,7 @@ if(isset($_POST['updateitem'])){
   $itemdescription=$_POST['itemdescription'];
   $itemprice=$_POST['itemprice'];
   $itemuniqueid=$_POST['itemuniqueid'];
-  $email=$_SESSION['userid'];
+  $phonenumber=$_SESSION['userid'];
   $imagestatus=0;
   $imageStatus=$_POST['updateimagestatus'];
   $imageStatus=intval($imageStatus);
@@ -412,8 +409,8 @@ if(($_FILES['item_img']['type'][$i] == 'image/jpg') || ($_FILES['item_img']['typ
 
 
 
-  $con=new mysqli("localhost","root","","greendizen");
-  $selectshopitemtable=mysqli_query($con,"select * from shopitem where uniqueid='$itemuniqueid' && email='$email'");
+  $con=new mysqli("localhost","root","","shriecom");
+  $selectshopitemtable=mysqli_query($con,"select * from shopitem where uniqueid='$itemuniqueid' && phonenumber=$phonenumber");
   $iteminfofetch=mysqli_fetch_array($selectshopitemtable);
   if(mysqli_num_rows($selectshopitemtable)==1){
     $item_url_text=preg_replace("/\s+/","-",$itemname);
@@ -454,7 +451,7 @@ if(isset($_POST['deleteitem'])){
 
   $itemuniqueid=$_POST['itemuniqueid'];
   //echo $itemquantity." ".$itemuniqueid;
-  $con=new mysqli("localhost","root","","greendizen");
+  $con=new mysqli("localhost","root","","shriecom");
   $status=1;
   $selectcarttable=mysqli_query($con,"update shopitem set status=$status where uniqueid='$itemuniqueid'");
   echo 1;
@@ -541,14 +538,14 @@ if(($_FILES['add_item_img']['type'][$i] == 'image/jpg') || ($_FILES['add_item_im
   // Note: $image is an Imagick object, not a filename! See example use below.
 
 
-  $con=new mysqli("localhost","root","","greendizen");
-  $email=$_SESSION['userid'];
-  $selectuser=mysqli_query($con,"select id from shopinfo where email='$email'");
+  $con=new mysqli("localhost","root","","shriecom");
+  $phonenumber=$_SESSION['userid'];
+  $selectuser=mysqli_query($con,"select id from shopinfo where phonenumber=$phonenumber");
   $fetchshopinfo=mysqli_fetch_array($selectuser);
   $shopid=$fetchshopinfo['id'];
   $item_url_text=preg_replace("/\s+/","-",$itemname);
   $itemname=str_replace("-"," ",$itemname);
-  $selectshopitemtable=mysqli_query($con,"select * from shopitem where itemname='$itemname' && email='$email' && status=0");
+  $selectshopitemtable=mysqli_query($con,"select * from shopitem where itemname='$itemname' && phonenumber=$phonenumber && status=0");
   //if(mysqli_num_rows($selectshopitemtable)==0){
   $RANDOM=rand(10000000000,99999999999);
   $item_url_link=$RANDOM.$item_url_text.".php";
@@ -559,8 +556,8 @@ if(($_FILES['add_item_img']['type'][$i] == 'image/jpg') || ($_FILES['add_item_im
   $status=0;
   $itemimg=$image_name[0];
   $itemimg2=$image_name[1];
-  $insertdata=$con->prepare("insert into shopitem (email,shopid,itemname,itemdescription,itemprice,itemimg,itemsideimg,itemurl,uniqueid,status) values (?,?,?,?,?,?,?,?,?,?)");
-  $insertdata->bind_param("sississssi",$email,$shopid,$itemname,$itemdescription,$itemprice,$itemimg,$itemimg2,$item_url_link,$uniqueid,$status);
+  $insertdata=$con->prepare("insert into shopitem (phonenumber,shopid,itemname,itemdescription,itemprice,itemimg,itemsideimg,itemurl,uniqueid,status) values (?,?,?,?,?,?,?,?,?,?)");
+  $insertdata->bind_param("sississssi",$phonenumber,$shopid,$itemname,$itemdescription,$itemprice,$itemimg,$itemimg2,$item_url_link,$uniqueid,$status);
   $insertdata->execute();
   $insertdata->close();
   $send=[1,$uniqueid];
@@ -591,7 +588,7 @@ if(($_FILES['add_item_img']['type'][$i] == 'image/jpg') || ($_FILES['add_item_im
 
 if(isset($_POST['searchinput'])){
   $inputtext=$_POST['inputtext'];
-  $con=new mysqli("localhost","root","","greendizen");
+  $con=new mysqli("localhost","root","","shriecom");
   $selectitemtable=mysqli_query($con,"select distinct  itemname from shopitem where itemname like '$inputtext%' or itemdescription like '$inputtext%' ");
 
   $selectitemtable2=mysqli_query($con,"select distinct itemname from shopitem where itemname like '%$inputtext%' and itemname not like '$inputtext%' ");
@@ -612,7 +609,7 @@ if(isset($_POST['fetchsearchresult'])){
 
   $inputtext=$_POST['inputtext'];
 
-  $con=new mysqli("localhost","root","","greendizen");
+  $con=new mysqli("localhost","root","","shriecom");
   $selectitemtable=mysqli_query($con,"select shopitem.shopid,shopitem.itemurl,shopitem.itemname,shopitem.itemprice,shopitem.itemimg,shopinfo.shopname from shopitem inner join shopinfo on shopinfo.id=shopitem.shopid where itemname='$inputtext' ");
   $fetchresult=mysqli_fetch_all($selectitemtable);
   $resultarray=[1];
@@ -640,7 +637,7 @@ if(isset($_POST['pickup-data'])){
   $_SESSION['product-weight']=$productweight;
   $_SESSION['pickup-details']=$pickup_status;
 
-  
+
   echo 1;
   exit();
 

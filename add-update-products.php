@@ -16,22 +16,19 @@
   <?php
 
   session_start();
-  $email="rajputvivek566@gmail.com";
-  $_SESSION['userid']=$email;
-  if(isset($_SESSION['userid'])){
 
-  }
-  else{
-    header("location:http://localhost/withmerce/login-form.php");
+
+  if(!isset($_SESSION['userid'])){
+    header("location:http://localhost/shriecom/login-form.php");
     exit();
   }
 
-  $con=new mysqli("localhost","root","","withmerce");
-  $email="rajputvivek566@gmail.com";
-  $selectshopitem=mysqli_query($con,"select * from shopitem where email='$email' && status=0");
+  $con=new mysqli("localhost","root","","shriecom");
+  $phonenumber=7840034924;
+  $selectshopitem=mysqli_query($con,"select * from shopitem where phonenumber=$phonenumber && status=0");
 
 
-  $selectshopinfo=mysqli_query($con,"select * from shopinfo where email='$email' ");
+  $selectshopinfo=mysqli_query($con,"select * from shopinfo where phonenumber=$phonenumber ");
   $shopinfofetch=mysqli_fetch_array($selectshopinfo);
   ?>
 <style>
@@ -187,7 +184,7 @@
       </a>
      </div>
      <BR>
-       <a href="http://localhost/withmerce/">
+       <a href="http://localhost/shriecom/">
      <div id="refer-to-home-page" style="font-family:arial;width:100%;height:30px;font-size:13px;padding-left:10px;display:table;white-space:nowrap;">
       <div class="material-icons" style="width: 22px;height: 21px;font-size: 20px;text-align: center;display: inline-block;vertical-align: middle;border-radius: 20%;">
         home
@@ -198,7 +195,7 @@
      </div>
    </a>
      <br>
-     <a href="http://localhost/withmerce/shop-owner-add-or-edit-item.php">
+     <a href="http://localhost/shriecom/shop-owner-add-or-edit-item.php">
      <div id="refer-to-add-or-edit-item" style="font-family:arial;width:100%;height:30px;font-size:13px;padding-left:10px;display:table;white-space:nowrap;">
       <div class="material-icons" style="width: 22px;height: 21px;font-size: 20px;text-align: center;display: inline-block;vertical-align: middle;border: 1px solid black;border-radius: 20%;">
         add
@@ -209,7 +206,7 @@
      </div>
    </a>
      <br>
-     <a href="http://localhost/withmerce/shop-order-history.php">
+     <a href="http://localhost/shriecom/shop-order-history.php">
      <div id="refer-to-history" style="font-family:arial;width:100%;height:30px;font-size:13px;padding-left:10px;display:table;white-space:nowrap;">
       <div class="material-icons" style="width: 22px;height: 21px;font-size: 20px;text-align: center;display: inline-block;vertical-align: middle;border-radius: 20%;">
         history
@@ -220,7 +217,7 @@
      </div>
    </a>
      <br>
-     <a href="http://localhost/withmerce/shop-owner.php">
+     <a href="http://localhost/shriecom/shop-owner.php">
      <div id="refer-to-customer-order" style="font-family:arial;width:100%;height:30px;font-size:13px;padding-left:10px;display:table;white-space:nowrap;">
       <div class="material-icons" style="width: 22px;height: 21px;font-size: 20px;text-align: center;display: inline-block;vertical-align: middle;border-radius: 20%;">
         description
@@ -231,7 +228,7 @@
      </div>
    </a>
      <br>
-     <a href="http://localhost/withmerce/contact-us.php">
+     <a href="http://localhost/shriecom/contact-us.php">
      <div id="refer-to-customer-order" style="font-family:arial;width:100%;height:30px;font-size:13px;padding-left:10px;display:table;white-space:nowrap;">
       <div class="material-icons" style="width: 22px;height: 21px;font-size: 20px;text-align: center;display: inline-block;vertical-align: middle;border-radius: 20%;">
         contact_page

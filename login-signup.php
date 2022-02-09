@@ -2,7 +2,7 @@
 session_start();
 if(isset($_POST['login_submit'])){
 
-    $con=new mysqli("localhost","root","","comship");
+    $con=new mysqli("localhost","root","","shriecom");
     $userid=$_POST['userid'];
     $userpassword=$_POST['userpassword'];
 
@@ -52,7 +52,7 @@ if(isset($_POST['login_submit'])){
 }
 
 if(isset($_POST['signup_submit'])){
-    $con=new mysqli("localhost","root","","comship");
+    $con=new mysqli("localhost","root","","shriecom");
 
     $username=$_POST['username'];
     //$email=$_POST['useremail'];
@@ -111,7 +111,7 @@ if(isset($_POST['signup_check_otp'])){
   $phonenumber=$_SESSION['phonenumber'];
 //  $address=$_SESSION['address'];
 
-  $con=new mysqli("localhost","root","","comship");
+  $con=new mysqli("localhost","root","","shriecom");
   /*$select_table=$con->prepare("SELECT * FROM userdata WHERE emailid=?");
   $select_table->bind_param("s",$email);
   $select_table->execute();
