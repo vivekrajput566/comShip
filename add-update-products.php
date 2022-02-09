@@ -16,50 +16,18 @@
   <?php
 
   session_start();
+  $email="rajputvivek566@gmail.com";
+  $_SESSION['userid']=$email;
   if(isset($_SESSION['userid'])){
 
   }
-  else if(isset($_COOKIE['userid_cookie'])){
-
-    $encripted_email=$_COOKIE['userid_cookie'];
-
-    $option=0;
-    $ciphermethod="BF-CBC";
-    //$ivlength=openssl_cipher_iv_length($ciphermethod);
-    $encription_iv=$_COOKIE['useriv_cookie'];
-    $encription_key="9543FERFCVDVDVJDVKN%%%EFSDFSDCSDCVSSVXCVXCVSDFWG3235RFWEFKJDVNSDK";
-    $decription=openssl_decrypt($encripted_email,$ciphermethod,$encription_key,$option,$encription_iv);
-    $con=new mysqli("localhost","root","","greendizen");
-
-    $decription=$con->real_escape_string($decription);
-
-    $selectuserdata=mysqli_query($con,"select emailid from userdata where emailid='$decription'");
-    if(mysqli_num_rows($selectuserdata)==1){
-
-      $fetchuserdatainfo=mysqli_fetch_array($selectuserdata);
-      $_SESSION['userid']=$fetchuserdatainfo['emailid'];
-
-
-
-
-
-      echo $con->error;
-
-    }
-    else{
-
-    }
-
-
-
-  }
   else{
-    header("location:http://localhost/greendizen/login-form.php");
+    header("location:http://localhost/withmerce/login-form.php");
     exit();
   }
 
-  $con=new mysqli("localhost","root","","greendizen");
-  $email=$_SESSION['userid'];
+  $con=new mysqli("localhost","root","","withmerce");
+  $email="rajputvivek566@gmail.com";
   $selectshopitem=mysqli_query($con,"select * from shopitem where email='$email' && status=0");
 
 
@@ -219,7 +187,7 @@
       </a>
      </div>
      <BR>
-       <a href="http://localhost/greendizen/">
+       <a href="http://localhost/withmerce/">
      <div id="refer-to-home-page" style="font-family:arial;width:100%;height:30px;font-size:13px;padding-left:10px;display:table;white-space:nowrap;">
       <div class="material-icons" style="width: 22px;height: 21px;font-size: 20px;text-align: center;display: inline-block;vertical-align: middle;border-radius: 20%;">
         home
@@ -230,7 +198,7 @@
      </div>
    </a>
      <br>
-     <a href="http://localhost/greendizen/shop-owner-add-or-edit-item.php">
+     <a href="http://localhost/withmerce/shop-owner-add-or-edit-item.php">
      <div id="refer-to-add-or-edit-item" style="font-family:arial;width:100%;height:30px;font-size:13px;padding-left:10px;display:table;white-space:nowrap;">
       <div class="material-icons" style="width: 22px;height: 21px;font-size: 20px;text-align: center;display: inline-block;vertical-align: middle;border: 1px solid black;border-radius: 20%;">
         add
@@ -241,7 +209,7 @@
      </div>
    </a>
      <br>
-     <a href="http://localhost/greendizen/shop-order-history.php">
+     <a href="http://localhost/withmerce/shop-order-history.php">
      <div id="refer-to-history" style="font-family:arial;width:100%;height:30px;font-size:13px;padding-left:10px;display:table;white-space:nowrap;">
       <div class="material-icons" style="width: 22px;height: 21px;font-size: 20px;text-align: center;display: inline-block;vertical-align: middle;border-radius: 20%;">
         history
@@ -252,7 +220,7 @@
      </div>
    </a>
      <br>
-     <a href="http://localhost/greendizen/shop-owner.php">
+     <a href="http://localhost/withmerce/shop-owner.php">
      <div id="refer-to-customer-order" style="font-family:arial;width:100%;height:30px;font-size:13px;padding-left:10px;display:table;white-space:nowrap;">
       <div class="material-icons" style="width: 22px;height: 21px;font-size: 20px;text-align: center;display: inline-block;vertical-align: middle;border-radius: 20%;">
         description
@@ -263,7 +231,7 @@
      </div>
    </a>
      <br>
-     <a href="http://localhost/greendizen/contact-us.php">
+     <a href="http://localhost/withmerce/contact-us.php">
      <div id="refer-to-customer-order" style="font-family:arial;width:100%;height:30px;font-size:13px;padding-left:10px;display:table;white-space:nowrap;">
       <div class="material-icons" style="width: 22px;height: 21px;font-size: 20px;text-align: center;display: inline-block;vertical-align: middle;border-radius: 20%;">
         contact_page

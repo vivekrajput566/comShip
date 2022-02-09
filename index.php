@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <title>comShip</title>
+    <title>ShriEcom</title>
   </head>
   <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-2 bg-primary text-white h5 p-2 material-icons" style="font-size:30px;">
+      <div class="row bg-primary text-white">
+        <div class="col-2  h5 p-2 material-icons" style="font-size:30px;">
           menu
         </div>
-        <div class="col-10 bg-primary text-white h1 p-2 ps-5">
-          ComShip
+        <div class="col-8 bg-primary text-center text-white h1 p-2 ">
+          ShriEcom
+        </div>
+        <div class="col-2 bg-primary text-white h1 p-2 ps-5">
+
         </div>
       </div>
       <div class="row">
@@ -25,7 +28,7 @@
       </div>
       <div class="row">
         <div class="col-12 text-center h2 pt-3" >
-        <a href="/comship/courier-service.php">  <button type="button" style="width:70%;height:80px;font-size:35px;radius:10px;border-radius:40px;"class="btn btn-lg btn-primary ">Ship with us</button>
+        <a href="/ShriEcom/courier-service.php">  <button type="button" style="width:75%;height:65px;font-size:29px;radius:10px;border-radius:34px;"class="btn btn-lg btn-primary ">Ship with us</button>
         </a>
         </div>
       </div></br>
@@ -53,51 +56,51 @@
           Our Products
         </div>
         <div class="col-4 text-right" style="text-align:right;">
-        <a href="/comship/shopping.php" style="text-decoration:none;font-size:20px;"> view all</a>
+        <a href="shopping.php" style="text-decoration:none;font-size:20px;"> view all</a>
         </div>
       </div>
 
       <div class="row" style="position:relative;">
         <div class="p-1">
-          <div  style="border:0.2px solid black;height:300px;">
+          <div  style="border:0.2px solid black;height:270px;">
             <div style="height:200px;position:relative;">
             <img src="photos/3.jpeg" class="rounded" />
           </div>
           <div class="product-price" style="text-align:center;">
-              $45
+              ₹45
           </div>
 
           </div>
         </div>
         <div class="p-1" >
-          <div  style="border:0.2px solid black;height:300px;">
+          <div  style="border:0.2px solid black;height:270px;">
             <div style="height:200px;position:relative;">
             <img src="photos/6.jpeg" class="rounded" />
           </div>
           <div class="product-price" style="text-align:center;">
-              $45
+              ₹250
           </div>
 
           </div>
         </div>
         <div class="p-1">
-          <div  style="border:0.2px solid black;height:300px;">
+          <div  style="border:0.2px solid black;height:270px;">
             <div style="height:200px;position:relative;">
             <img src="photos/7.jpeg" class="rounded" />
           </div>
           <div class="product-price" style="text-align:center;">
-              $45
+              ₹450
           </div>
 
           </div>
         </div>
         <div class="p-1" >
-          <div style="border:0.2px solid black;height:300px;">
+          <div style="border:0.2px solid black;height:270px;">
             <div style="height:200px;position:relative;">
             <img src="photos/5.jpeg" class="rounded" >
           </div>
           <div class="product-price" style="text-align:center;">
-              $45
+              ₹600
           </div>
          </div>
         </div>

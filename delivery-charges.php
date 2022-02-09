@@ -1,4 +1,16 @@
-<?php session_start(); ?>
+<?php session_start();
+if(!isset($_SESSION['pickup-details']) || !isset($_SESSION['destination-details'])){
+  header("location:index.php");
+  exit();
+}
+if(!isset($_SESSION['userid'])){
+  header("location:login-form.php?delivery-charges=delivery-charges");
+  exit();
+}
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -7,7 +19,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>comShip</title>
+    <title>ShriEcom</title>
     <style>
     input[type=submit] {
       width: 100%;
@@ -40,16 +52,19 @@
   </script>
   <body>
     <div class="container-fluid">
-      <div class="row">
+      <div class="row bg-primary ">
         <div class="col-2 bg-primary text-white h5 p-2 material-icons" style="font-size:30px;">
           menu
         </div>
-        <div class="col-10 bg-primary text-white h1 p-2 ps-5">
-          ComShip
+        <div class="col-8 bg-primary text-center text-white h1 p-2 ">
+          ShriEcom
+        </div>
+        <div class="col-2 bg-primary text-white h1 p-2 ps-5">
+
         </div>
       </div>
 
-<center>
+<center><br>
   <h3>Ship Your Order</h3>
 </center>
 
