@@ -38,7 +38,7 @@ if(isset($_POST['login_submit'])){
         setcookie("userid_cookie",$encription,time()+(60*60*24*100000));
         setcookie("useriv_cookie",$encription_iv,time()+(60*60*24*100000));
             $_SESSION['userid']=$userid;
-            echo("1");
+            echo 1;
            }
         else{
            echo("Enter valid ID or Password");
@@ -86,7 +86,7 @@ if(isset($_POST['signup_submit'])){
     //    $_SESSION['signup_otp']=$message;
        //$from="info@anvikait.com";
       //$mail=mail($to,$subject,$message,"From:".$from);
-      echo("1");
+      echo 1;
 
     }
 

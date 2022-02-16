@@ -168,7 +168,7 @@ if(isset($_POST['confirm_cart_order'])){
   //$shopownerphonenumber=$fetchshopinfo['phonenumber'];
   $status=1;
   $insertdata=$con->prepare("insert into itemorder (phonenumber,shopid,itemuniqueid,itemquantity,status,orderid) values (?,?,?,?,?,?)");
-  $insertdata->bind_param("iissiii",$phonenumber,$shopid,$itemid,$itemquantity,$status,$orderid);
+  $insertdata->bind_param("iissii",$phonenumber,$shopid,$itemid,$itemquantity,$status,$orderid);
   $insertdata->execute();
   $insertdata->close();
   $count=$count+1;
@@ -660,4 +660,43 @@ if(isset($_POST['destination-data'])){
   exit();
 
 }
+
+
+if(isset($_POST['ecom-customer-details'])){
+  $username=$_POST['destination-username'];
+  $useraddress=$_POST['destination-address'];
+  $userpincode=$_POST['destination-pincode'];
+  $usermobileno=$_POST['destination-mobileno'];
+  $customerid=$_SESSION['userid'];
+
+  $con=new mysqli("localhost","root","","shriecom");
+
+  $insert_into_table=$con->prepare("insert into ecom_customer_delivery_details (username,phonenumber,address,pincode,customerid) values (?,?,?,?,?)");
+  $insert_into_table->bind_param("sisii",$username,$usermobileno,$useraddress,$userpincode,$customerid);
+  $insert_into_table->execute();
+  $insert_into_table->close();
+  $_SESSION['ecom-customer-delivery-details']="ok";
+  echo 1;
+  exit();
+
+}
+
+if(isset($_POST['update-ecom-customer-details'])){
+  $username=$_POST['username'];
+  $useraddress=$_POST['useraddress'];
+  $userpincode=$_POST['userpincode'];
+  $usermobileno=$_POST['userphoneno'];
+  $customerid=$_SESSION['userid'];
+
+  $con=new mysqli("localhost","root","","shriecom");
+  $update_customer_details=$con->prepare("update ecom_customer_delivery_details set username=?, phonenumber=?, address=?, pincode=? where customerid=?");
+  $update_customer_details->bind_param("sisii",$username,$usermobileno,$useraddress,$userpincode,$customerid);
+  $update_customer_details->execute();
+  $update_customer_details->close();
+
+  echo 1;
+  exit();
+
+}
+
 ?>

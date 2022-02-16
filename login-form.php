@@ -639,7 +639,7 @@ return false;
            if(data==1){
              console.log("you are welcome");
              <?php if(isset($_GET['delivery-charges'])){?>
-               window.location.href="delivery-charges.php";
+              history.back();
                <?php }
                else{?>
             window.location.href="index.php";
@@ -689,8 +689,9 @@ $("#loading-image-body").show();
       data:{'userid':user_id,'userpassword':user_password,'login_submit':'login_submit'},
       success:function(data,textStatus){
        if(data==1){
+
          <?php if(isset($_GET['delivery-charges'])){?>
-           window.location.href="delivery-charges.php"
+           history.back();
            <?php }
            else{?>
         window.location.href="index.php"

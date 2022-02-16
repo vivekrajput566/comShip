@@ -21,7 +21,7 @@
   $fetchdata=mysqli_fetch_array($selectdata);
   if(mysqli_num_rows($selectdata)==0){
     $selectdata->close();
-    header("location:http://localhost/greendizen");
+    header("location:http://localhost/shriecom");
     exit();
   }
   $itemname=pathinfo($itemnameurl,PATHINFO_FILENAME);
@@ -44,7 +44,7 @@
       $fetchdata=mysqli_fetch_array($selectdata);
       if(mysqli_num_rows($selectdata)==0){
         $selectdata->close();
-        header("location:http://localhost/greendizen");
+        header("location:http://localhost/shriecom");
         exit();
       }
       $iteminfofetch=$fetchdata;
@@ -69,12 +69,12 @@
       color: white;
   }
   #company-name-body{
-        max-height: 38px;
-        margin-top: 15px;
-        margin-left:14px;
-        font-size: 25px;
-        overflow: hidden;
-        font-family: arial;
+    width: 50%;
+height: 100%;
+display: table-cell;
+vertical-align: middle;
+font-size: 25px;
+font-family: arial;
 
   }
   #user-login-status{
@@ -144,22 +144,22 @@
   </style>
   <body id="body-container" style="width:100%;">
     <div  id="header-container" class="">
-      <header id="header-body">
+      <header id="header-body" style="background:#0d6efd;">
         <div id="menu-button" >
-          <a href="http://localhost/greendizen/<?php echo $shopid;?>"><div id="menu-btn" class="material-icons" style="font-size:25px;margin:auto;opacity:0.9;">
+          <a href="http://localhost/shriecom/<?php echo $shopid;?>"><div id="menu-btn" class="material-icons" style="font-size:25px;margin:auto;opacity:0.9;">
           arrow_back
         </div></a>
 
         </div>
 
-        <div id="company-name-body">
-            GreenDizen
+        <div id="company-name-body" style="text-align:center;">
+            ShriEcom
 
         </div>
 
         <div id="cart-button" >
           <div id="cart-block">
-            <a href="http://localhost/greendizen/cart.php">
+            <a href="http://localhost/shriecom/cart.php">
           <div id="cart-btn" class="material-icons" style="font-size:30px;float:left;opacity:0.9;">
             shopping_cart
         </div>
@@ -351,7 +351,7 @@ $(document).ready(function(){
     itemPrice=originalPrice+itemPrice;
     showPrice=itemPrice;
     quantity=quantity+1;
-    $("#buynowlink").attr("href",`http://localhost/greendizen/checkout.php?itemid=<?php echo $iteminfofetch['uniqueid'];?>&itemquantity=${quantity}`)
+    $("#buynowlink").attr("href",`http://localhost/shriecom/checkout.php?itemid=<?php echo $iteminfofetch['uniqueid'];?>&itemquantity=${quantity}`)
     showQuantity="Qty "+quantity;
     showPrice="₹"+showPrice;
     $("#item-price-box").text(showPrice);
@@ -397,7 +397,7 @@ $(document).ready(function(){
     itemPrice=itemPrice-originalPrice;
     showPrice=itemPrice;
     quantity=quantity-1;
-    $("#buynowlink").attr("href",`http://localhost/greendizen/checkout.php?itemid=<?php echo $iteminfofetch['uniqueid'];?>&itemquantity=${quantity}`)
+    $("#buynowlink").attr("href",`http://localhost/shriecom/checkout.php?itemid=<?php echo $iteminfofetch['uniqueid'];?>&itemquantity=${quantity}`)
     showQuantity="Qty " + quantity;
     showPrice="₹"+showPrice;
     $("#item-price-box").text(showPrice);
@@ -545,7 +545,7 @@ $(document).ready(function(){
 
 
          <div id="check-cart-button" style="display:none;">
-           <a href="http://localhost/greendizen/cart.php">
+           <a href="http://localhost/shriecom/cart.php">
          <button  id="cart-button" style="width:80px;height:35px;background: #4899ec;color: white;border:1px solid black;outline:none;">check cart</button>
           </a>
        </div>
@@ -553,7 +553,7 @@ $(document).ready(function(){
      if($itemspresentincart==1){
      ?>
      <div id="check-cart-buttons" >
-       <a href="http://localhost/greendizen/cart.php">
+       <a href="http://localhost/shriecom/cart.php">
      <button  id="cart-page-button" style="width:80px;height:35px;background: #4899ec;color: white;border:none;border-radius: 5px;outline:none;">check cart</button>
       </a>
     </div>
@@ -565,7 +565,7 @@ $(document).ready(function(){
 
          ?>
          <div id="login-to-check-cart-button">
-           <a href="http://localhost/greendizen/login-form.php">
+           <a href="http://localhost/shriecom/login-form.php">
          <button  id="check-cart" style="width:80px;height:35px;background: #4899ec;color: white;border:1px solid black;outline:none;">add to cart</button>
           </a>
        </div>
@@ -760,7 +760,7 @@ $(document).ready(function(){
 
 })
 </script>
-<a id="buynowlink"href="http://localhost/greendizen/checkout.php?itemid=<?php echo $iteminfofetch['uniqueid'];?>&itemquantity=1">
+<a id="buynowlink"href="http://localhost/shriecom/checkout.php?itemid=<?php echo $iteminfofetch['uniqueid'];?>&itemquantity=1">
     <div id="checkout-item-body">
 
       <div id="checkout-item" >

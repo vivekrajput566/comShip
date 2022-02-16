@@ -136,7 +136,7 @@ $("#menu-body").css('height',windowHeight);
         </div>
 
         <div id="company-name-body" style="text-align:center;">
-            ComShip
+            ShriEcom
 
         </div>
         <div id="cart-button" >
@@ -149,8 +149,8 @@ $("#menu-body").css('height',windowHeight);
         <div id="cart-items-number" >
           <?php if(isset($_SESSION['userid']))
           {
-            $email=$_SESSION['userid'];
-            $selectshoppingcart=mysqli_query($con,"select uniqueid,quantity from shoppingcart where email='$email' ");
+            $phonenumber=$_SESSION['userid'];
+            $selectshoppingcart=mysqli_query($con,"select uniqueid,quantity from shoppingcart where phonenumber='$phonenumber' ");
             $itemsincart=mysqli_num_rows($selectshoppingcart);
             echo $itemsincart;
           }
