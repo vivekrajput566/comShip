@@ -571,11 +571,11 @@ $(document).ready(function(){
        </div>
      <?php }?>
      </div>
-       <hr>
 
 
 
 
+<!--
        <style>
         #other-website-pricing-body{
           width:100%;
@@ -602,7 +602,7 @@ $(document).ready(function(){
            </div>
            <div id="amazon-item-image" style="width:130px;height:130px;float:left;position: absolute;top:40px;margin: auto;right: 0;left: 0;">
              <div id="other-item-image" style="width: 130px;height: 130px;float: left;position: relative;top:0px;margin: auto;right: 0;left: 0;">
-             <img src="../photos/<?php echo $iteminfofetch['itemimg'];?>" style="max-width:100%;max-height:100%;position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+           <img src="../photos/<?php /* echo $iteminfofetch['itemimg'];?>" style="max-width:100%;max-height:100%;position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
            </div>
            </div>
            <div id="amazon-item-price" style="float:left;font-family:arial;text-align:center;position: absolute;left:0;margin: auto;right: 0;bottom: 5px;">
@@ -638,6 +638,7 @@ $(document).ready(function(){
            <?php } ?>
            </div>
          </div>
+
          <div id="other-website-item-price-block">
            <div id="flipkart-logo" style="width:120px;height:50px;text-align:center;font-family: arial;float:left;position: absolute;top: 0;margin: auto;right: 0;left: 0;">
              other website
@@ -656,19 +657,21 @@ $(document).ready(function(){
               echo "₹".$iteminfofetch['otherwebsiteprice'];
                ?>
 
-           <?php } ?>
+           <?php } */ ?>
            </div>
          </div>
+       -->
 
 
-
-       </div>
+       </di1v>
 
        <style>
        #item-rating-and-reviews{
          width:100%;
          height: auto;
          padding:15px;
+         margin-top:25px;
+         border-top:1px solid black;
 
        }
        #item-rating-block{

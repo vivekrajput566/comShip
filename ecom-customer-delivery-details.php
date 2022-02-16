@@ -143,7 +143,7 @@ else{
             console.log(data)
             if(data==1){
               $("#destination-details-error").text("Server error");
-              window.location="cart.php";
+              window.location="checkout.php?itemid=<?php echo $_GET['itemid'];?>&itemquantity=<?php echo $_GET['itemquantity'];?>";
 
             }
             else{

@@ -19,7 +19,7 @@
     exit();
   }
   if(!isset($_SESSION['ecom-customer-delivery-details'])){
-    header("location:http://localhost/shriecom/ecom-customer-delivery-details.php");
+    header('location:http://localhost/shriecom/ecom-customer-delivery-details.php?itemid='.$_GET['itemid'].'&itemquantity='.$_GET['itemquantity']);
     exit();
   }
   $phonenumber=$_SESSION['userid'];
