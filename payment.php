@@ -12,14 +12,42 @@
 <?php
 
   session_start();
+  if(isset($_POST['delivery-charges'])){
+    $modeOfPaymnet=$_POST['modeOfPayment'];
+    $deliveryCharges=$_POST['delivery-charges'];
+    $paramList=array();
+    $ORDER_ID=rand(10000000,99999999);
+    $CUST_ID="rajputvivek5686@gmail.com";
+    $CHANNEL_ID="WEB";
+    $paramList["ORDER_ID"] = $ORDER_ID;
+    $paramList["CUST_ID"] = $CUST_ID;
+    $paramList["INDUSTRY_TYPE_ID"] = "Retail";;
+    $paramList["CHANNEL_ID"] = $CHANNEL_ID;
+    $paramList["TXN_AMOUNT"] = $deliveryCharges;
 
+
+  }
    if(isset($_SESSION['payment-page-redirect'])){
-     header("location:http://localhost/shriecom/");
+     header("location:http://localhost/shriecom/payment/PaytmKit/pgRedirect.php");
      exit();
    }
 
 ?>
+<form method="post" action="PaytmKit/pgRedirect.php" name="f1">
+<table border="1">
+  <tbody>
+  <?php
+  foreach($paramList as $name => $value) {
+    echo '<input type="hidden" name="' . $name .'" value="' . $value . '">';
+  }
+  ?>
 
+  </tbody>
+</table>
+<script type="text/javascript">
+  document.f1.submit();
+</script>
+</form>
 
 
 <style>

@@ -80,6 +80,7 @@
 
   <br>
   <script>
+  var cod=1;
     $(document).ready(function(){
 
       $("#submit-pickup-details").click(function(){
@@ -184,7 +185,8 @@
             console.log(data)
             if(data==1){
               $("#destination-details-error").text("Server error");
-              window.location="delivery-charges.php";
+              $("#destination-details").hide();
+              $("#product-details").show();
 
             }
             else{
@@ -196,6 +198,74 @@
         })
 
 
+
+      })
+
+
+
+      $("#submit-product-details").click(function(){
+        let productName=$("#product-name").val().trim();
+        let productWeight=$("#product-weight").val().trim();
+        let productAmount=$("#product-amount").val().trim();
+        let amountCollect=cod;
+        if(productName.trim().length==0){
+          $(".product-details-error").text("Enter Product Name");
+          return;
+        }
+        if(productWeight.trim().length==0){
+          $(".product-details-error").text("Enter Product Weight");
+          return;
+        }
+        if(productAmount.trim().length==0){
+          $(".product-details-error").text("Enter Product Amount");
+          return;
+        }
+
+
+        let productFormData= new FormData();
+        productFormData.append("product-name",productName);
+        productFormData.append("product-weight",productWeight);
+        productFormData.append("product-amount",productAmount);
+        productFormData.append("amount-collect",amountCollect);
+        productFormData.append("product-data","product-data");
+        $("#product-loading").show();
+        $("#product-continue").hide();
+        $.ajax({
+          type:'POST',
+          url:'ajax_backend.php',
+          data:productFormData,
+          processData:false,
+          contentType:false,
+          success:function(data){
+            console.log(data)
+            if(data==1){
+
+              window.location="delivery-charges.php";
+
+            }
+            else{
+              $("#product-details-error").text("Server error try again");
+              $("#product-loading").hide();
+              $("#product-continue").show();
+            }
+          }
+        })
+
+
+
+      })
+
+
+
+      $("#cash-on-delivery").click(function(){
+        $("#pay-now").prop("checked",false);
+
+        cod=1;
+
+      })
+      $("#pay-now").click(function(){
+        cod=0;
+        $("#cash-on-delivery").prop("checked",false);
 
       })
 
@@ -279,6 +349,54 @@
 
   </div>
   </div>
+
+  <div class="row" id="product-details" style="display:none;position:relative;width:auto;height:524px;">
+  <div class="row" style="background-color:#f2f2f2;height:auto;width:90%;position:absolute;margin:auto;top:0;right:0;left:0;bottom:0;">
+    <center>
+  <span class="text-primary" style="font-size:20px;font-weight:bold;">  Product Details </span><br>
+  <span class="text-danger product-details-error" style="font-size:15px;font-weight:bold;"> </span>
+  </center>
+
+
+      <label for="product-username">Product Name</label>
+      <input type="text" id="product-name" name="product-name" placeholder="Enter Product name">
+
+      <label for="product-weight">Product Weight</label>
+      <input type="number" id="product-weight" name="product-weight" placeholder="Enter Product weight">
+
+      <label for="product-amount">Product Amount</label>
+      <input type="number" id="product-amount" name="product-amount" placeholder="Enter Product Amount ">
+
+      <div id="select-cod" class="row" style="padding:5px;">
+        <div style="padding-left:10px;padding-bottom: 10px;font-weight:bold;">Collect Amount</div><br>
+        <div class="col-1">
+          <input type="radio" id="cash-on-delivery" name="cash-on-delivery" checked="true" />
+        </div>
+        <div class="col-11" style="text-align:left;">
+          Cash On Delivery
+        </div>
+      </div>
+      <div id="select-prepaid" class="row" style="padding:5px;">
+          <div class="col-1">
+            <input type="radio" id="pay-now" name="pay-now"/>
+          </div>
+          <div class="col-11" style="text-align:left;">
+            Prepaid
+          </div>
+      </div>
+
+
+      <button  id="submit-product-details">
+        <div class="spinner-border text-light text-left" id="product-loading" style="display: none;" ></div>
+        <div id="product-continue">Continue</div>
+      </button>
+
+  </div>
+  </div>
+
+
+
+
 </div>
   </body>
 </html>

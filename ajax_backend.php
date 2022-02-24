@@ -699,4 +699,24 @@ if(isset($_POST['update-ecom-customer-details'])){
 
 }
 
+if(isset($_POST['product-data'])){
+  $productName=$_POST['product-name'];
+  $weight=$_POST['product-weight'];
+  $amount=$_POST['product-amount'];
+  $amountCollect=$_POST['amount-collect'];
+
+  $product_status="ok";
+
+  $_SESSION['product-name']=$productName;
+  $_SESSION['product-weight']=$weight;
+  $_SESSION['product-amount']=$amount;
+  $_SESSION['amount-collect']=$amountCollect;
+  $_SESSION['product-details']=$product_status;
+  echo 1;
+  exit();
+
+}
+
+
+
 ?>

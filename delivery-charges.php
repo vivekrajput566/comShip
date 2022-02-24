@@ -1,5 +1,5 @@
 <?php session_start();
-if(!isset($_SESSION['pickup-details']) || !isset($_SESSION['destination-details'])){
+if(!isset($_SESSION['pickup-details']) || !isset($_SESSION['destination-details']) || !isset($_SESSION['product-details'])){
   header("location:index.php");
   exit();
 }
@@ -39,11 +39,12 @@ if(!isset($_SESSION['userid'])){
   $(document).ready(function(){
 
     $("#cash-on-delivery").click(function(){
+      $("#modeOfPayment").val(1);
       $("#pay-now").prop("checked",false);
 
     })
     $("#pay-now").click(function(){
-
+      $("#modeOfPayment").val(0);
       $("#cash-on-delivery").prop("checked",false);
 
     })
@@ -71,7 +72,7 @@ if(!isset($_SESSION['userid'])){
 
   <br>
   <div class="row" id="pickup-details" style="display:block;position:relative;width:auto;height:660px;">
-  <div class="row" style="background-color:#f2f2f2;height:auto;width:90%;margin:auto;top:0;right:0;left:0;bottom:0;">
+  <div class="row" style="background-color:#f2f2f2;height:auto;width:90%;margin:auto;top:0;right:0;left:0;bottom:0;padding-bottom:20px;">
   <br>
   <div class="text-primary" style="font-size:20px;text-align: center;height:80px;font-weight:bold;"> Delivery charges </div>
 
@@ -138,6 +139,14 @@ if(!isset($_SESSION['userid'])){
     #  $destinationPincode=$_SESSION["destination-pincode"];
       $destinationMobileNo=$_SESSION["destination-mobileno"];
 
+
+
+        $productName=$_SESSION['product-name'];
+        $weight=$_SESSION['product-weight'];
+        $amount=$_SESSION['product-amount'];
+        $amountCollect=$_SESSION['amount-collect'];
+
+
   ?>
 
     <div id="pickup details" class="row" style="padding:5px;background:white;margin:0;margin-top:15px;  ">
@@ -169,16 +178,43 @@ if(!isset($_SESSION['userid'])){
             <?php echo $destinationMobileNo;?>
         </div>
     </div>
-    <br>
-    <div class="continue-button" style="margin-top:10px;">
-    <input type="submit"  value="Continue">
-  </div>
+
+    <div id="product-details" class="row" style="padding:5px;background:white;margin:0;margin-top:15px;  ">
+        <div class="row" style="font-weight:bold;">
+          Product details
+        </div>
+        <div class="row">
+          <?php echo $productName;?>
+        </div>
+        <div class="row">
+            <?php echo $weight;?>kg
+        </div>
+        <div class="row">
+          $<?php echo $amount; ?>
+        </div>
+        <div class="row">
+          <?php if($amountCollect){ echo "cod"; } else{ echo "prepaid"; } ?>
+        </div>
+
+    </div>
+
+    <div style="height:60px;">
     </div>
 
 
   </div>
 
 
+</div>
+
+  <div class="continue-button" style="position:fixed;bottom:0;width:95%;margin:auto;left:0;right:0;">
+    <form method="post" action="payment.php">
+      <input type="hidden" value="40" name="delivery-charges" />
+      <input type="hidden" value="1" id="modeOfPayment" name="modeOfPaymnet" />
+
+
+  <input type="submit"  value="Continue">
+  </div>
 
   </body>
 </html>
